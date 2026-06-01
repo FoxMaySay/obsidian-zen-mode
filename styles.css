@@ -2,10 +2,10 @@ body.zen-mode-active {
   --zen-editor-width: min(760px, calc(100vw - 96px));
   --zen-muted-line-opacity: 0.28;
   --zen-focus-padding: max(36vh, calc(50vh - 1.2em));
-  --zen-bg: #f7f2e8;
+  --zen-bg: #ffffff;
   --zen-text: #2f2a22;
   --zen-muted-text: #6f6657;
-  --zen-menu-bg: rgba(247, 242, 232, 0.94);
+  --zen-menu-bg: rgba(255, 255, 255, 0.94);
   --zen-menu-border: rgba(47, 42, 34, 0.16);
   --zen-menu-shadow: rgba(47, 42, 34, 0.18);
   --zen-button-bg: rgba(47, 42, 34, 0.06);

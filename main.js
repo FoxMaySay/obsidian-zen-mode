@@ -1,4 +1,4 @@
-const { MarkdownView, Notice, Plugin } = require("obsidian");
+const { MarkdownView, Notice, Plugin, PluginSettingTab, Setting } = require("obsidian");
 const { Decoration, EditorView, ViewPlugin } = require("@codemirror/view");
 
 const BODY_CLASS = "zen-mode-active";
@@ -11,6 +11,11 @@ const ROLE_DROPDOWN_SELECTOR = ".rsp-role-dropdown";
 
 const DEFAULT_SETTINGS = {
   theme: "light",
+  colors: {
+    light: { bg: "#ffffff", text: "#2f2a22", mutedText: "#6f6657" },
+    dark:  { bg: "#242629", text: "#f1ede6", mutedText: "#d2c9bd" },
+    green: { bg: "#edf4ea", text: "#1f3328", mutedText: "#52695d" },
+  },
 };
 
 const THEMES = [
@@ -83,7 +88,16 @@ function makeActiveLinePlugin(pendingFrames) {
 
 module.exports = class FocusZenModePlugin extends Plugin {
   async onload() {
-    this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+    const saved = await this.loadData();
+    this.settings = {
+      ...DEFAULT_SETTINGS,
+      ...saved,
+      colors: {
+        light: { ...DEFAULT_SETTINGS.colors.light, ...saved?.colors?.light },
+        dark:  { ...DEFAULT_SETTINGS.colors.dark,  ...saved?.colors?.dark  },
+        green: { ...DEFAULT_SETTINGS.colors.green, ...saved?.colors?.green },
+      },
+    };
     if (!THEMES.some((theme) => theme.id === this.settings.theme)) {
       this.settings.theme = DEFAULT_SETTINGS.theme;
     }
@@ -98,6 +112,7 @@ module.exports = class FocusZenModePlugin extends Plugin {
 
     document.body.classList.remove(BODY_CLASS);
     this.applyThemeClass();
+    this.applyCustomColors();
     this.createThemeMenu();
 
     this.ribbonIconEl = this.addRibbonIcon("focus", "Focus Zen Mode", () => {
@@ -124,6 +139,8 @@ module.exports = class FocusZenModePlugin extends Plugin {
     });
 
     this.registerEditorExtension([makeActiveLinePlugin(this.pendingCenterFrames)]);
+
+    this.addSettingTab(new ZenModeSettingTab(this.app, this));
 
     this.registerDomEvent(document, "keydown", (event) => {
       this.handleKeydown(event);
@@ -153,6 +170,7 @@ module.exports = class FocusZenModePlugin extends Plugin {
     this.menuZoneEl?.remove();
     this.menuZoneEl = null;
     this.clearThemeClasses();
+    document.getElementById("zen-custom-colors")?.remove();
   }
 
   toggleZenMode() {
@@ -310,4 +328,106 @@ module.exports = class FocusZenModePlugin extends Plugin {
     window.setTimeout(() => scheduleCenterActiveLine(cm, this.pendingCenterFrames), 40);
     window.setTimeout(() => scheduleCenterActiveLine(cm, this.pendingCenterFrames), 140);
   }
+
+  applyCustomColors() {
+    const c = this.settings.colors;
+    const hex = (v) => v || "#000000";
+    const menuBg = (bg) => {
+      const r = parseInt(bg.slice(1, 3), 16);
+      const g = parseInt(bg.slice(3, 5), 16);
+      const b = parseInt(bg.slice(5, 7), 16);
+      return `rgba(${r}, ${g}, ${b}, 0.94)`;
+    };
+    const css = `
+body.zen-mode-active:not(.zen-theme-dark):not(.zen-theme-green) {
+  --zen-bg: ${hex(c.light.bg)};
+  --zen-text: ${hex(c.light.text)};
+  --zen-muted-text: ${hex(c.light.mutedText)};
+  --zen-menu-bg: ${menuBg(hex(c.light.bg))};
+}
+body.zen-mode-active.zen-theme-dark {
+  --zen-bg: ${hex(c.dark.bg)};
+  --zen-text: ${hex(c.dark.text)};
+  --zen-muted-text: ${hex(c.dark.mutedText)};
+  --zen-menu-bg: ${menuBg(hex(c.dark.bg))};
+}
+body.zen-mode-active.zen-theme-green {
+  --zen-bg: ${hex(c.green.bg)};
+  --zen-text: ${hex(c.green.text)};
+  --zen-muted-text: ${hex(c.green.mutedText)};
+  --zen-menu-bg: ${menuBg(hex(c.green.bg))};
+}`;
+    let el = document.getElementById("zen-custom-colors");
+    if (!el) {
+      el = document.createElement("style");
+      el.id = "zen-custom-colors";
+      document.head.appendChild(el);
+    }
+    el.textContent = css;
+  }
 };
+
+const HEX_RE = /^#[0-9a-fA-F]{6}$/;
+
+class ZenModeSettingTab extends PluginSettingTab {
+  constructor(app, plugin) {
+    super(app, plugin);
+    this.plugin = plugin;
+  }
+
+  display() {
+    const { containerEl } = this;
+    containerEl.empty();
+
+    const themeConfigs = [
+      { id: "light", label: "Light Theme" },
+      { id: "dark",  label: "Dark Theme"  },
+      { id: "green", label: "Green Theme" },
+    ];
+
+    const defaults = DEFAULT_SETTINGS.colors;
+
+    for (const { id, label } of themeConfigs) {
+      containerEl.createEl("h3", { text: label });
+
+      this.addColorSetting(containerEl, id, "bg",       "Background color",       "Background color in hex (e.g. #ffffff)", defaults[id].bg);
+      this.addColorSetting(containerEl, id, "text",     "Focused text color",     "Color of the active line text in hex",   defaults[id].text);
+      this.addColorSetting(containerEl, id, "mutedText","Unfocused text color",   "Color of inactive lines in hex",         defaults[id].mutedText);
+
+      new Setting(containerEl)
+        .setName("Reset " + label.toLowerCase() + " to defaults")
+        .addButton((btn) => {
+          btn.setButtonText("Reset").onClick(async () => {
+            this.plugin.settings.colors[id] = { ...defaults[id] };
+            await this.plugin.saveData(this.plugin.settings);
+            this.plugin.applyCustomColors();
+            this.display();
+          });
+        });
+    }
+  }
+
+  addColorSetting(containerEl, themeId, key, name, desc, defaultVal) {
+    let inputEl;
+    const setting = new Setting(containerEl)
+      .setName(name)
+      .setDesc(desc)
+      .addText((text) => {
+        inputEl = text.inputEl;
+        text
+          .setPlaceholder(defaultVal)
+          .setValue(this.plugin.settings.colors[themeId][key])
+          .onChange(async (value) => {
+            if (!HEX_RE.test(value)) {
+              inputEl.style.borderColor = "red";
+              return;
+            }
+            inputEl.style.borderColor = "";
+            this.plugin.settings.colors[themeId][key] = value;
+            await this.plugin.saveData(this.plugin.settings);
+            this.plugin.applyCustomColors();
+          });
+      });
+    return setting;
+  }
+}
