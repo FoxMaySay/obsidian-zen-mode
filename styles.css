@@ -1,0 +1,240 @@
+body.zen-mode-active {
+  --zen-editor-width: min(760px, calc(100vw - 96px));
+  --zen-muted-line-opacity: 0.28;
+  --zen-focus-padding: max(36vh, calc(50vh - 1.2em));
+  --zen-bg: #f7f2e8;
+  --zen-text: #2f2a22;
+  --zen-muted-text: #6f6657;
+  --zen-menu-bg: rgba(247, 242, 232, 0.94);
+  --zen-menu-border: rgba(47, 42, 34, 0.16);
+  --zen-menu-shadow: rgba(47, 42, 34, 0.18);
+  --zen-button-bg: rgba(47, 42, 34, 0.06);
+  --zen-button-active-bg: #b4533f;
+  --zen-button-active-text: #fffaf5;
+}
+
+body.zen-mode-active.zen-theme-dark {
+  --zen-bg: #242629;
+  --zen-text: #f1ede6;
+  --zen-muted-line-opacity: 0.5;
+  --zen-muted-text: #d2c9bd;
+  --zen-menu-bg: rgba(36, 38, 41, 0.94);
+  --zen-menu-border: rgba(236, 231, 220, 0.18);
+  --zen-menu-shadow: rgba(0, 0, 0, 0.36);
+  --zen-button-bg: rgba(236, 231, 220, 0.08);
+}
+
+body.zen-mode-active.zen-theme-green {
+  --zen-bg: #edf4ea;
+  --zen-text: #1f3328;
+  --zen-muted-text: #52695d;
+  --zen-menu-bg: rgba(237, 244, 234, 0.94);
+  --zen-menu-border: rgba(31, 51, 40, 0.16);
+  --zen-menu-shadow: rgba(31, 51, 40, 0.18);
+  --zen-button-bg: rgba(31, 51, 40, 0.07);
+}
+
+body.zen-mode-active .workspace-ribbon,
+body.zen-mode-active .mod-left-split,
+body.zen-mode-active .mod-right-split,
+body.zen-mode-active .status-bar {
+  display: none !important;
+}
+
+body.zen-mode-active .titlebar-button-container.mod-right,
+body.zen-mode-active .titlebar-button-container.mod-right .titlebar-button,
+body.zen-mode-active .titlebar-button.mod-minimize,
+body.zen-mode-active .titlebar-button.mod-maximize,
+body.zen-mode-active .titlebar-button.mod-close {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+body.zen-mode-active .workspace-tab-header-container,
+body.zen-mode-active .view-header {
+  border: 0 !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  opacity: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+body.zen-mode-active .workspace,
+body.zen-mode-active .workspace-split.mod-root,
+body.zen-mode-active .workspace-tabs,
+body.zen-mode-active .workspace-leaf,
+body.zen-mode-active .workspace-leaf-content,
+body.zen-mode-active .view-content {
+  background: var(--zen-bg) !important;
+  color: var(--zen-text) !important;
+}
+
+body.zen-mode-active .workspace-split.mod-root .workspace-tabs:not(.zen-target-tabs),
+body.zen-mode-active .workspace-split.mod-root .workspace-leaf:not(.zen-target-leaf) {
+  display: none !important;
+}
+
+body.zen-mode-active .workspace-split.mod-root,
+body.zen-mode-active .workspace-split.mod-root .zen-target-tabs,
+body.zen-mode-active .workspace-split.mod-root .zen-target-leaf,
+body.zen-mode-active .zen-target-view,
+body.zen-mode-active .zen-target-view .view-content,
+body.zen-mode-active .zen-target-view .markdown-source-view,
+body.zen-mode-active .zen-target-view .cm-editor {
+  flex: 1 1 auto !important;
+  height: 100% !important;
+  max-height: none !important;
+  max-width: none !important;
+  width: 100% !important;
+}
+
+body.zen-mode-active .zen-target-view .view-content {
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 {
+  --file-line-width: var(--zen-editor-width);
+  --line-width: var(--zen-editor-width);
+}
+
+body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-editor {
+  background: var(--zen-bg) !important;
+  color: var(--zen-text) !important;
+}
+
+body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-scroller {
+  font-size: 1.08em;
+  line-height: 1.75;
+  overflow-x: hidden !important;
+  scroll-padding-bottom: 45vh !important;
+  scroll-padding-top: 45vh !important;
+}
+
+body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-gutters {
+  display: none !important;
+}
+
+body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-sizer,
+body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-contentContainer,
+body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-content,
+body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-line {
+  box-sizing: border-box;
+  max-width: var(--zen-editor-width) !important;
+}
+
+body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-sizer,
+body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-contentContainer,
+body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-content {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: var(--zen-editor-width) !important;
+}
+
+body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-sizer {
+  min-width: 0 !important;
+}
+
+body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-content {
+  caret-color: var(--zen-text) !important;
+  min-height: 100% !important;
+  padding-bottom: var(--zen-focus-padding) !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-top: var(--zen-focus-padding) !important;
+}
+
+body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-line {
+  color: var(--zen-muted-text) !important;
+  opacity: var(--zen-muted-line-opacity);
+  transition: opacity 120ms ease;
+}
+
+body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-line * {
+  color: inherit !important;
+}
+
+body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-line.zen-current-line,
+body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-line.cm-active {
+  color: var(--zen-text) !important;
+  opacity: 1;
+}
+
+body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-cursorLayer,
+body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-selectionLayer {
+  opacity: 1 !important;
+}
+
+body.zen-mode-active .rsp-role-dropdown {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  z-index: 100000 !important;
+}
+
+.zen-ribbon-button.is-active {
+  color: var(--interactive-accent);
+}
+
+.zen-menu-zone {
+  bottom: 0;
+  display: none;
+  height: 10vh;
+  left: 0;
+  min-height: 72px;
+  pointer-events: none;
+  position: fixed;
+  right: 0;
+  z-index: 99990;
+}
+
+body.zen-mode-active .zen-menu-zone {
+  display: flex;
+  justify-content: center;
+  pointer-events: auto;
+}
+
+.zen-theme-menu {
+  align-items: center;
+  align-self: flex-end;
+  background: var(--zen-menu-bg);
+  border: 1px solid var(--zen-menu-border);
+  border-radius: 8px;
+  box-shadow: 0 12px 36px var(--zen-menu-shadow);
+  display: flex;
+  gap: 6px;
+  margin-bottom: 18px;
+  opacity: 0;
+  padding: 6px;
+  transform: translateY(16px);
+  transition: opacity 140ms ease, transform 140ms ease;
+}
+
+body.zen-mode-active .zen-menu-zone:hover .zen-theme-menu,
+body.zen-mode-active .zen-menu-zone:focus-within .zen-theme-menu {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.zen-theme-button {
+  background: var(--zen-button-bg);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--zen-text);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  min-width: 64px;
+  padding: 9px 12px;
+}
+
+.zen-theme-button:hover {
+  border-color: var(--zen-menu-border);
+}
+
+.zen-theme-button.is-active {
+  background: var(--zen-button-active-bg);
+  color: var(--zen-button-active-text);
+}

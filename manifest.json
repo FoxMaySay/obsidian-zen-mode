@@ -1,0 +1,9 @@
+{
+  "id": "zen-mode",
+  "name": "Zen Mode",
+  "version": "1.0.0",
+  "minAppVersion": "1.0.0",
+  "description": "A focused Zen writing mode with centered current line focus.",
+  "author": "Red",
+  "isDesktopOnly": false
+}
