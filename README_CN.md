@@ -1,4 +1,4 @@
-# obsidian-zen-mode
+# obsidian-focus-zen-mode
 
 [English](README.md)
 
@@ -25,7 +25,7 @@
 1. 在你的 Obsidian 仓库中创建以下文件夹：
 
    ```text
-   .obsidian/plugins/zen-mode/
+   .obsidian/plugins/focus-zen-mode/
    ```
 
 2. 将以下文件复制到该文件夹中：
@@ -37,7 +37,7 @@
    ```
 
 3. 重启 Obsidian。
-4. 打开 设置 -> 第三方插件，启用 **Zen Mode**。
+4. 打开 设置 -> 第三方插件，启用 **Focus Zen Mode**。
 
 ## 使用方法
 

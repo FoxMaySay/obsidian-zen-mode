@@ -1,8 +1,8 @@
-# obsidian-zen-mode
+# obsidian-focus-zen-mode
 
 [中文](README_CN.md)
 
-Zen Mode is an Obsidian plugin for focused Markdown writing. It hides distracting workspace UI, centers the active editor line, and provides a compact theme switcher for light, dark, and green writing modes.
+Focus Zen Mode is an Obsidian plugin for focused Markdown writing. It hides distracting workspace UI, centers the active editor line, and provides a compact theme switcher for light, dark, and green writing modes.
 
 ![Zen Mode light theme](screenshot/ScreenShot_01.png)
 
@@ -25,7 +25,7 @@ Zen Mode is an Obsidian plugin for focused Markdown writing. It hides distractin
 1. Create this folder inside your vault:
 
    ```text
-   .obsidian/plugins/zen-mode/
+   .obsidian/plugins/focus-zen-mode/
    ```
 
 2. Copy these files into that folder:
@@ -37,7 +37,7 @@ Zen Mode is an Obsidian plugin for focused Markdown writing. It hides distractin
    ```
 
 3. Restart Obsidian.
-4. Open Settings -> Community plugins and enable **Zen Mode**.
+4. Open Settings -> Community plugins and enable **Focus Zen Mode**.
 
 ## Usage
 

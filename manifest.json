@@ -1,9 +1,9 @@
 {
-  "id": "zen-mode",
-  "name": "Zen Mode",
+  "id": "focus-zen-mode",
+  "name": "Focus Zen Mode",
   "version": "1.0.0",
   "minAppVersion": "1.0.0",
-  "description": "A focused Zen writing mode with centered current line focus.",
+  "description": "A focused writing mode with centered current line and theme switcher.",
   "author": "Red",
   "isDesktopOnly": false
 }

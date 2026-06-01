@@ -81,7 +81,7 @@ function makeActiveLinePlugin(pendingFrames) {
   });
 }
 
-module.exports = class ZenModePlugin extends Plugin {
+module.exports = class FocusZenModePlugin extends Plugin {
   async onload() {
     this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
     if (!THEMES.some((theme) => theme.id === this.settings.theme)) {
@@ -100,7 +100,7 @@ module.exports = class ZenModePlugin extends Plugin {
     this.applyThemeClass();
     this.createThemeMenu();
 
-    this.ribbonIconEl = this.addRibbonIcon("focus", "Zen mode", () => {
+    this.ribbonIconEl = this.addRibbonIcon("focus", "Focus Zen Mode", () => {
       this.toggleZenMode();
     });
     this.ribbonIconEl?.classList.add("zen-ribbon-button");
