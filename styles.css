@@ -38,7 +38,7 @@ body.zen-mode-active .workspace-ribbon,
 body.zen-mode-active .mod-left-split,
 body.zen-mode-active .mod-right-split,
 body.zen-mode-active .status-bar {
-  display: none !important;
+  display: none;
 }
 
 body.zen-mode-active .titlebar-button-container.mod-right,
@@ -46,19 +46,19 @@ body.zen-mode-active .titlebar-button-container.mod-right .titlebar-button,
 body.zen-mode-active .titlebar-button.mod-minimize,
 body.zen-mode-active .titlebar-button.mod-maximize,
 body.zen-mode-active .titlebar-button.mod-close {
-  opacity: 0 !important;
-  pointer-events: none !important;
-  visibility: hidden !important;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
 }
 
 body.zen-mode-active .workspace-tab-header-container,
 body.zen-mode-active .view-header {
-  border: 0 !important;
-  height: 0 !important;
-  min-height: 0 !important;
-  opacity: 0 !important;
-  overflow: hidden !important;
-  pointer-events: none !important;
+  border: 0;
+  height: 0;
+  min-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
 }
 
 body.zen-mode-active .workspace,
@@ -67,13 +67,13 @@ body.zen-mode-active .workspace-tabs,
 body.zen-mode-active .workspace-leaf,
 body.zen-mode-active .workspace-leaf-content,
 body.zen-mode-active .view-content {
-  background: var(--zen-bg) !important;
-  color: var(--zen-text) !important;
+  background: var(--zen-bg);
+  color: var(--zen-text);
 }
 
 body.zen-mode-active .workspace-split.mod-root .workspace-tabs:not(.zen-target-tabs),
 body.zen-mode-active .workspace-split.mod-root .workspace-leaf:not(.zen-target-leaf) {
-  display: none !important;
+  display: none;
 }
 
 body.zen-mode-active .workspace-split.mod-root,
@@ -83,16 +83,16 @@ body.zen-mode-active .zen-target-view,
 body.zen-mode-active .zen-target-view .view-content,
 body.zen-mode-active .zen-target-view .markdown-source-view,
 body.zen-mode-active .zen-target-view .cm-editor {
-  flex: 1 1 auto !important;
-  height: 100% !important;
-  max-height: none !important;
-  max-width: none !important;
-  width: 100% !important;
+  flex: 1 1 auto;
+  height: 100%;
+  max-height: none;
+  max-width: none;
+  width: 100%;
 }
 
 body.zen-mode-active .zen-target-view .view-content {
-  overflow: hidden !important;
-  padding: 0 !important;
+  overflow: hidden;
+  padding: 0;
 }
 
 body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 {
@@ -101,20 +101,20 @@ body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 {
 }
 
 body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-editor {
-  background: var(--zen-bg) !important;
-  color: var(--zen-text) !important;
+  background: var(--zen-bg);
+  color: var(--zen-text);
 }
 
 body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-scroller {
   font-size: 1.08em;
   line-height: 1.75;
-  overflow-x: hidden !important;
-  scroll-padding-bottom: 45vh !important;
-  scroll-padding-top: 45vh !important;
+  overflow-x: hidden;
+  scroll-padding-bottom: 45vh;
+  scroll-padding-top: 45vh;
 }
 
 body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-gutters {
-  display: none !important;
+  display: none;
 }
 
 body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-sizer,
@@ -122,55 +122,55 @@ body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-contentC
 body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-content,
 body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-line {
   box-sizing: border-box;
-  max-width: var(--zen-editor-width) !important;
+  max-width: var(--zen-editor-width);
 }
 
 body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-sizer,
 body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-contentContainer,
 body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-content {
-  margin-left: auto !important;
-  margin-right: auto !important;
-  width: var(--zen-editor-width) !important;
+  margin-left: auto;
+  margin-right: auto;
+  width: var(--zen-editor-width);
 }
 
 body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-sizer {
-  min-width: 0 !important;
+  min-width: 0;
 }
 
 body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-content {
-  caret-color: var(--zen-text) !important;
-  min-height: 100% !important;
-  padding-bottom: var(--zen-focus-padding) !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  padding-top: var(--zen-focus-padding) !important;
+  caret-color: var(--zen-text);
+  min-height: 100%;
+  padding-bottom: var(--zen-focus-padding);
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: var(--zen-focus-padding);
 }
 
 body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-line {
-  color: var(--zen-muted-text) !important;
+  color: var(--zen-muted-text);
   opacity: var(--zen-muted-line-opacity);
   transition: opacity 120ms ease;
 }
 
 body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-line * {
-  color: inherit !important;
+  color: inherit;
 }
 
 body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-line.zen-current-line,
 body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-line.cm-active {
-  color: var(--zen-text) !important;
+  color: var(--zen-text);
   opacity: 1;
 }
 
 body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-cursorLayer,
 body.zen-mode-active .zen-target-view .markdown-source-view.mod-cm6 .cm-selectionLayer {
-  opacity: 1 !important;
+  opacity: 1;
 }
 
 body.zen-mode-active .rsp-role-dropdown {
-  opacity: 1 !important;
-  pointer-events: auto !important;
-  z-index: 100000 !important;
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 100000;
 }
 
 .zen-ribbon-button.is-active {
