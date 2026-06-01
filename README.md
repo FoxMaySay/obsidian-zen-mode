@@ -20,7 +20,15 @@ Focus Zen Mode is an Obsidian plugin for focused Markdown writing. It hides dist
 
 ## Installation
 
-### Manual installation
+### Method 1: Community Plugins (Recommended)
+
+Once listed on the community store, you can install it directly:
+
+1. Go to **Settings > Community plugins > Browse**.
+2. Search for **Focus Zen Mode**.
+3. Click **Install**, then **Enable**.
+
+### Method 2: Manual Installation
 
 1. Create this folder inside your vault:
 
@@ -37,7 +45,7 @@ Focus Zen Mode is an Obsidian plugin for focused Markdown writing. It hides dist
    ```
 
 3. Restart Obsidian.
-4. Open Settings -> Community plugins and enable **Focus Zen Mode**.
+4. Open **Settings > Community plugins** and enable **Focus Zen Mode**.
 
 ## Usage
 
