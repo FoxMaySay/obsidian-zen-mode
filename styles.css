@@ -217,6 +217,13 @@ body.zen-mode-active .zen-menu-zone:focus-within .zen-theme-menu {
   transform: translateY(0);
 }
 
+.zen-opacity-value {
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+  min-width: 3em;
+  text-align: right;
+}
+
 .zen-theme-button {
   background: var(--zen-button-bg);
   border: 1px solid transparent;

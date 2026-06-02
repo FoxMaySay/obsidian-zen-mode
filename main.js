@@ -11,6 +11,7 @@ const ROLE_DROPDOWN_SELECTOR = ".rsp-role-dropdown";
 
 const DEFAULT_SETTINGS = {
   theme: "light",
+  mutedLineOpacityPercent: 28,
   colors: {
     light: { bg: "#ffffff", text: "#2f2a22", mutedText: "#6f6657" },
     dark:  { bg: "#242629", text: "#f1ede6", mutedText: "#d2c9bd" },
@@ -101,6 +102,9 @@ module.exports = class FocusZenModePlugin extends Plugin {
     if (!THEMES.some((theme) => theme.id === this.settings.theme)) {
       this.settings.theme = DEFAULT_SETTINGS.theme;
     }
+    this.settings.mutedLineOpacityPercent = normalizeOpacityPercent(
+      this.settings.mutedLineOpacityPercent
+    );
 
     this.isActive = false;
     this.targetViewEl = null;
@@ -331,6 +335,7 @@ module.exports = class FocusZenModePlugin extends Plugin {
 
   applyCustomColors() {
     const c = this.settings.colors;
+    const mutedOpacity = this.settings.mutedLineOpacityPercent / 100;
     const hex = (v) => v || "#000000";
     const menuBg = (bg) => {
       const r = parseInt(bg.slice(1, 3), 16);
@@ -340,18 +345,21 @@ module.exports = class FocusZenModePlugin extends Plugin {
     };
     const css = `
 body.zen-mode-active:not(.zen-theme-dark):not(.zen-theme-green) {
+  --zen-muted-line-opacity: ${mutedOpacity};
   --zen-bg: ${hex(c.light.bg)};
   --zen-text: ${hex(c.light.text)};
   --zen-muted-text: ${hex(c.light.mutedText)};
   --zen-menu-bg: ${menuBg(hex(c.light.bg))};
 }
 body.zen-mode-active.zen-theme-dark {
+  --zen-muted-line-opacity: ${mutedOpacity};
   --zen-bg: ${hex(c.dark.bg)};
   --zen-text: ${hex(c.dark.text)};
   --zen-muted-text: ${hex(c.dark.mutedText)};
   --zen-menu-bg: ${menuBg(hex(c.dark.bg))};
 }
 body.zen-mode-active.zen-theme-green {
+  --zen-muted-line-opacity: ${mutedOpacity};
   --zen-bg: ${hex(c.green.bg)};
   --zen-text: ${hex(c.green.text)};
   --zen-muted-text: ${hex(c.green.mutedText)};
@@ -368,6 +376,14 @@ body.zen-mode-active.zen-theme-green {
 };
 
 const HEX_RE = /^#[0-9a-fA-F]{6}$/;
+const OPACITY_MIN = 0;
+const OPACITY_MAX = 100;
+
+function normalizeOpacityPercent(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return DEFAULT_SETTINGS.mutedLineOpacityPercent;
+  return Math.min(OPACITY_MAX, Math.max(OPACITY_MIN, Math.round(number)));
+}
 
 class ZenModeSettingTab extends PluginSettingTab {
   constructor(app, plugin) {
@@ -387,6 +403,8 @@ class ZenModeSettingTab extends PluginSettingTab {
 
     const defaults = DEFAULT_SETTINGS.colors;
 
+    this.addMutedOpacitySetting(containerEl);
+
     for (const { id, label } of themeConfigs) {
       containerEl.createEl("h3", { text: label });
 
@@ -405,6 +423,40 @@ class ZenModeSettingTab extends PluginSettingTab {
           });
         });
     }
+  }
+
+  addMutedOpacitySetting(containerEl) {
+    let valueEl;
+    const setting = new Setting(containerEl)
+      .setName("Unfocused text opacity")
+      .setDesc("Opacity percentage for non-focused text lines.")
+      .addSlider((slider) => {
+        slider
+          .setLimits(OPACITY_MIN, OPACITY_MAX, 1)
+          .setValue(this.plugin.settings.mutedLineOpacityPercent)
+          .setDynamicTooltip()
+          .onChange(async (value) => {
+            this.plugin.settings.mutedLineOpacityPercent = normalizeOpacityPercent(value);
+            if (valueEl) valueEl.setText(`${this.plugin.settings.mutedLineOpacityPercent}%`);
+            await this.plugin.saveData(this.plugin.settings);
+            this.plugin.applyCustomColors();
+          });
+      })
+      .addButton((button) => {
+        button
+          .setButtonText("Reset")
+          .onClick(async () => {
+            this.plugin.settings.mutedLineOpacityPercent = DEFAULT_SETTINGS.mutedLineOpacityPercent;
+            await this.plugin.saveData(this.plugin.settings);
+            this.plugin.applyCustomColors();
+            this.display();
+          });
+      });
+
+    valueEl = setting.controlEl.createSpan({
+      cls: "zen-opacity-value",
+      text: `${this.plugin.settings.mutedLineOpacityPercent}%`,
+    });
   }
 
   addColorSetting(containerEl, themeId, key, name, desc, defaultVal) {
